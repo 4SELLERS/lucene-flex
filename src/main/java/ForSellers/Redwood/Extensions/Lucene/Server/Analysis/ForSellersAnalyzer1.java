@@ -1,10 +1,7 @@
 package ForSellers.Redwood.Extensions.Lucene.Server.Analysis;
 
-import ForSellers.Redwood.Extensions.Lucene.Server.Analysis.Tokenizer.ForSellersTokenizer;
-
+import ForSellers.Redwood.Extensions.Lucene.Server.Analysis.Tokenizer.ForSellersTokenizer1;
 import org.apache.lucene.analysis.*;
-import org.apache.lucene.analysis.snowball.SnowballFilter;
-import org.apache.lucene.analysis.standard.StandardFilter;
 import org.apache.lucene.util.Version;
 
 import java.io.IOException;
@@ -14,7 +11,7 @@ import java.util.Set;
 /**
  * Created by mohammadreza.roohian on 03.05.2016.
  */
-public class ForSellersAnalyzer extends Analyzer {
+public class ForSellersAnalyzer1 extends Analyzer {
     private final Version _matchVersion;
     private String _name;
     private final Set<String> _stopSet;
@@ -28,7 +25,7 @@ public class ForSellersAnalyzer extends Analyzer {
      * @param name
      * @param stopSet
      */
-    public ForSellersAnalyzer(Version matchVersion, String name, Set<String> stopSet) {
+    public ForSellersAnalyzer1(Version matchVersion, String name, Set<String> stopSet) {
         this._matchVersion = matchVersion;
         this._name = name;
         this._stopSet = stopSet;
@@ -44,16 +41,17 @@ public class ForSellersAnalyzer extends Analyzer {
     /// </summary>
     @Override
     public TokenStream tokenStream(String fieldName, Reader reader) {
-        ForSellersTokenizer forSellersTokenizer = new ForSellersTokenizer(_matchVersion, reader);
+        ForSellersTokenizer1 forSellersTokenizer = new ForSellersTokenizer1(_matchVersion, reader);
         forSellersTokenizer.setMaxTokenLength(_maxTokenLength);
 
-        TokenStream tokenStream = new LowerCaseFilter(new StandardFilter(forSellersTokenizer));
+        /*TokenStream tokenStream = new LowerCaseFilter(new StandardFilter(forSellersTokenizer));
 
         if (_stopSet != null) {
             tokenStream = new StopFilter(_enableStopPositionIncrements, tokenStream, _stopSet);
         }
 
-        return new SnowballFilter(tokenStream, _name);
+        return new SnowballFilter(tokenStream, _name);*/
+        return forSellersTokenizer;
     }
 
     @Override
@@ -64,14 +62,15 @@ public class ForSellersAnalyzer extends Analyzer {
             SavedStreams streams = (SavedStreams)this.getPreviousTokenStream();
             if(streams == null) {
                 streams = new SavedStreams();
-                streams.source = new ForSellersTokenizer(_matchVersion, reader);
-                streams.result = new StandardFilter(streams.source);
+                streams.source = new ForSellersTokenizer1(_matchVersion, reader);
+                /*streams.result = new StandardFilter(streams.source);
                 streams.result = new LowerCaseFilter(streams.result);
                 if(_stopSet != null) {
                     streams.result = new StopFilter(_enableStopPositionIncrements, streams.result, _stopSet);
                 }
 
                 streams.result = new SnowballFilter(streams.result, _name);
+                */
                 this.setPreviousTokenStream(streams);
             } else {
                 streams.source.reset(reader);

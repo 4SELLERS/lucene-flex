@@ -16,21 +16,31 @@ import java.io.StringReader;
 public class ForSellersAnalyzerTests {
     @Test
     public void testTokenize() throws IOException {
-        Reader reader = new StringReader(
-            "MODUL-PLUS Bewegungsmelder, silber, 250V~/5A, UP " +
-            "Me&Myself"
-        );
-
-        ForSellersAnalyzer analyzer = new ForSellersAnalyzer(Version.LUCENE_30, "German2", null);
+        String text = "MODUL-PLUS Bewegungsmelder, silber, 250V~/5A, UP " +
+            "Me&Myself " +
+            "٩٠ 90 و and 中國 اما but 923 a " +
+            " 化計劃 " +
+            "Aäüxa, 䋨みょ ৯০ Äa_sds $ ABSDS διδασ-ϰάλια جُمله ἐς ९० τοὺς here Ελληνα ႠႡႢႣ ͲͳͰͱ ӐӑӒӓӔӕ " +
+            "Ԣԣ Ātsā 4Sellers 8 and Das Kochbuch für Reiter " +
+            " Know-it-all ";
 
         String fieldName = "_TITLE";
 
-        TokenStream a = analyzer.tokenStream(fieldName, reader);
+        ForSellersAnalyzer analyzer = new ForSellersAnalyzer(Version.LUCENE_30, "German2", null);
+        ForSellersAnalyzer1 analyzer1 = new ForSellersAnalyzer1(Version.LUCENE_30, "German2", null);
+
+        TokenStream a = analyzer.tokenStream(fieldName, new StringReader(text));
+        TokenStream b = analyzer1.tokenStream(fieldName, new StringReader(text));
 
         // + Assert
         while (a.incrementToken()) {
-            System.out.println(a.getAttribute(TermAttribute.class));
-            System.out.println(a.getAttribute(TypeAttribute.class));
+            System.out.println("A:" + a.getAttribute(TermAttribute.class) + ", " + a.getAttribute(TypeAttribute.class));
+
+            if (b != null && b.incrementToken()) {
+                System.out.println("B:" + b.getAttribute(TermAttribute.class)+ ", " + b.getAttribute(TypeAttribute.class));
+            } else {
+                b = null;
+            }
         }
     }
 }

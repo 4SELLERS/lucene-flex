@@ -1,17 +1,18 @@
-package ForSellers.Redwood.Extensions.Lucene.Server.Analysis;
+package ForSellers.Redwood.Extensions.Lucene.Server.Analysis.Tokenizer;
 
 /**
  * ForSellers tokenizer token types.
  */
 public enum TokenTypes {
     ALPHANUM(0, "<ALPHANUM>"),
-    APOSTROPHE(1, "<APOSTROPHE>"),
-    ACRONYM(2, "<ACRONYM>"),
-    COMPANY(3, "<COMPANY>"),
-    EMAIL(4, "<EMAIL>"),
-    HOST(5, "<HOST>"),
-    NUM(6, "<NUM>"),
-    CJ(7, "<CJ>"),
+    HYPHENED_ALPHANUM(1, "<HYPHENED_ALPHANUM>"),
+    APOSTROPHE(2, "<APOSTROPHE>"),
+    ACRONYM(3, "<ACRONYM>"),
+    COMPANY(4, "<COMPANY>"),
+    EMAIL(5, "<EMAIL>"),
+    HOST(6, "<HOST>"),
+    NUM(7, "<NUM>"),
+    CJ(8, "<CJ>"),
 
     /**
      * @deprecated this solves a bug where HOSTs that end with '.' are identified

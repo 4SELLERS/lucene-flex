@@ -1,4 +1,4 @@
-package ForSellers.Redwood.Extensions.Lucene.Server.Analysis;
+package ForSellers.Redwood.Extensions.Lucene.Server.Analysis.Tokenizer;
 
 import org.apache.lucene.analysis.Token;
 import org.apache.lucene.analysis.tokenattributes.TermAttribute;

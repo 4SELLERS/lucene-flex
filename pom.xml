@@ -51,8 +51,8 @@
 
         <dependency>
             <groupId>de.jflex</groupId>
-            <artifactId>maven-jflex-plugin</artifactId>
-            <version>1.4.3</version>
+            <artifactId>jflex-maven-plugin</artifactId>
+            <version>1.6.0</version>
         </dependency>
 
         <dependency>
@@ -115,9 +115,10 @@
                 <configuration>
                     <filesets>
                         <fileset>
-                            <directory>src/main/java/ForSellers/Redwood/Extensions/Lucene/Server/Analysis</directory>
+                            <directory>src/main/java/ForSellers/Redwood/Extensions/Lucene/Server/Analysis/Tokenizer/</directory>
                             <includes>
                                 <include>ForSellersTokenizerLogic.java</include>
+                                <include>ForSellersTokenizer1Logic.java</include>
                             </includes>
                         </fileset>
                         <fileset>
@@ -132,8 +133,8 @@
 
             <plugin>
                 <groupId>de.jflex</groupId>
-                <artifactId>maven-jflex-plugin</artifactId>
-                <version>1.4.3</version>
+                <artifactId>jflex-maven-plugin</artifactId>
+                <version>1.6.0</version>
                 <executions>
                     <execution>
                         <goals>
@@ -142,7 +143,8 @@
                         <configuration>
                             <outputDirectory>src/main/java</outputDirectory>
                             <lexDefinitions>
-                                <lexDefinition>src/main/java/ForSellers/Redwood/Extensions/Lucene/Server/Analysis/forsellers_tokenizer.flex</lexDefinition>
+                                <lexDefinition>src/main/java/ForSellers/Redwood/Extensions/Lucene/Server/Analysis/Tokenizer/forsellers_tokenizer.flex</lexDefinition>
+                                <lexDefinition>src/main/java/ForSellers/Redwood/Extensions/Lucene/Server/Analysis/Tokenizer/forsellers_tokenizer1.flex</lexDefinition>
                             </lexDefinitions>
                         </configuration>
                     </execution>

@@ -1,4 +1,4 @@
-package ForSellers.Redwood.Extensions.Lucene.Server.Analysis;
+package ForSellers.Redwood.Extensions.Lucene.Server.Analysis.Tokenizer;
 
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.io.Reader;
 
 /// <summary>
-/// A grammar-based tokenizer constructed with JFlex specificly designed for shop search queries.
+/// A grammar-based tokenizer constructed with JFlex specifically designed for shop search queries.
 /// </summary>
-public class ForSellersTokenizer extends Tokenizer {
+public class ForSellersTokenizer1 extends Tokenizer {
     private final IForSellersTokenizerLogic scanner;
 
     private boolean replaceInvalidAcronym;
@@ -24,6 +24,10 @@ public class ForSellersTokenizer extends Tokenizer {
     private PositionIncrementAttribute posIncrAtt;
     private TypeAttribute typeAtt;
 
+    private IForSellersTokenizerLogic getScanner(Reader input) {
+        return new ForSellersTokenizer1Logic(input);
+    }
+
     public void setMaxTokenLength(int length) {
         this.maxTokenLength = length;
     }
@@ -32,20 +36,20 @@ public class ForSellersTokenizer extends Tokenizer {
         return this.maxTokenLength;
     }
 
-    public ForSellersTokenizer(Version matchVersion, Reader input) {
-        this.scanner = new ForSellersTokenizerLogic(input);
+    public ForSellersTokenizer1(Version matchVersion, Reader input) {
+        this.scanner = getScanner(input);
         this.init(input, matchVersion);
     }
 
-    public ForSellersTokenizer(Version matchVersion, AttributeSource source, Reader input) {
+    public ForSellersTokenizer1(Version matchVersion, AttributeSource source, Reader input) {
         super(source);
-        this.scanner = new ForSellersTokenizerLogic(input);
+        this.scanner = getScanner(input);
         this.init(input, matchVersion);
     }
 
-    public ForSellersTokenizer(Version matchVersion, AttributeFactory factory, Reader input) {
+    public ForSellersTokenizer1(Version matchVersion, AttributeFactory factory, Reader input) {
         super(factory);
-        this.scanner = new ForSellersTokenizerLogic(input);
+        this.scanner = getScanner(input);
         this.init(input, matchVersion);
     }
 
